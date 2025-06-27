@@ -1,0 +1,35 @@
+{
+  "name": "little-wheels",
+  "version": "1.0.0",
+  "description": "这是一个基于react自用轮子库",
+  "type": "module",
+  "main": "dist/ui.cjs.js",
+  "module": "dist/ui.es.js",
+  "types": "dist/ui.es.d.ts",
+  "files": [
+    "dist"
+  ],
+  "directories": {
+    "doc": "docs",
+    "example": "example"
+  },
+  "scripts": {
+    "start": "vite",
+    "build": "vite build"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^24.0.4",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react-swc": "^3.10.2",
+    "sass": "^1.89.2",
+    "vite": "^6.3.5",
+    "vite-plugin-dts": "^4.5.4"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  }
+}
