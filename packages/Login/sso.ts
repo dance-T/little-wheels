@@ -120,6 +120,17 @@ class AuthLogin {
     }
   }
 
+  async refreshToken(forceRefresh?: boolean) {
+    const { exp } = AuthLogin.getDecodeToken();
+    const now = Date.now() / 1000; //  now exp
+    // 快过期了
+    if (forceRefresh || (now > exp - 200 && now < exp)) {
+      const authTokenInfo = await useSSOApi().refreshAuthToken();
+      this.setToken(authTokenInfo);
+      this.setToken(authTokenInfo, "auth");
+    }
+  }
+
   static getTokenInfo() {
     const APPID = localStorage.getItem("APPID");
     if (!APPID) {
