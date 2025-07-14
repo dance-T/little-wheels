@@ -16,7 +16,7 @@ export default function App() {
     });
 
     if (!AuthLogin.getTokenInfo()) {
-      authLogin.sso();
+      authLogin.SSOLogin();
     } else {
       console.log(AuthLogin.getDecodeToken());
     }

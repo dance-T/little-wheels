@@ -35,9 +35,9 @@ export default defineConfig(({ command }) => {
       outDir: path.resolve(__dirname, "dist"),
       lib: {
         entry: path.resolve(__dirname, "packages/index.ts"),
-        name: "ui",
+        name: "littleWheels",
         formats: ["es", "umd", "cjs", "iife"],
-        fileName: (format: string) => `ui.${format}.js`,
+        fileName: (format: string) => `littleWheels.${format}.js`,
       },
       rollupOptions: {
         external: ["react", "react-dom"],

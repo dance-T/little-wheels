@@ -12,7 +12,7 @@ class AuthLogin {
     localStorage.setItem("APPID", this.APPID);
   }
 
-  async sso() {
+  async SSOLogin() {
     // 获取 url 中的参数
     const params = getUrlParams(location.href) as any;
     const must = ["state", "code", "iss", "session_state"];
