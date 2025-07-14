@@ -1,7 +1,11 @@
-import { useEffect } from "react";
-import { AuthLogin } from "../packages/Login";
+## keyclock 登录认证
 
-const APPID = "lxwork";
+###### 记得在proxy中配置 代理
+
+```react
+// 示例代码 和框架无关
+
+const APPID = "xxxx";
 
 let authLogin: AuthLogin;
 
@@ -11,6 +15,7 @@ export default function App() {
   };
 
   useEffect(() => {
+    // 实例化后才可调用 AuthLogin上的静态方法
     authLogin = new AuthLogin({
       APPID,
     });
@@ -28,3 +33,5 @@ export default function App() {
     </div>
   );
 }
+```
+

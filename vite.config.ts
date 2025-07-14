@@ -18,6 +18,18 @@ export default defineConfig(({ command }) => {
     root: isDev ? path.resolve(__dirname, "example") : undefined,
     server: {
       port: 3000,
+      proxy: {
+        "/lxwork/api": {
+          // target: "http://172.16.190.144:8888/",
+          target: "https://sso-dev.qdlxjt.cn",
+          changeOrigin: true,
+        },
+        "/sso": {
+          // target: "http://172.16.190.144:8888/",
+          target: "https://sso-dev.qdlxjt.cn",
+          changeOrigin: true,
+        },
+      },
     },
     build: {
       outDir: path.resolve(__dirname, "dist"),
