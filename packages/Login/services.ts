@@ -1,11 +1,15 @@
 import qs from "qs";
 import AuthLogin from "./sso";
-import { TokenInfoType } from "./type";
+import { CompanyItem, TokenInfoType, UserGroupItem } from "./type";
 const api = {
   token: "/lxwork/api/auth/token",
   permissionTicket: "/lxwork/api/auth/create-permission-ticket",
   authToken: "/sso/realms/myrealm/protocol/openid-connect/token",
   refreshToken: "/lxwork/api/auth/refresh",
+
+  userGroup: "/lxwork/api/auth/users/groups",
+  groups: "/lxwork/api/auth/groups",
+  allCompany: "/lxwork/api/auth/groups/branch",
 };
 
 export interface SearchTokenParams {
@@ -16,9 +20,14 @@ export interface SearchTokenParams {
 }
 
 async function fetchData<T>(url: string, data?: RequestInit): Promise<T> {
-  const response = await fetch(url, data);
+  const response = await fetch(url, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + AuthLogin.getToken(),
+    },
+    ...(data || {}),
+  });
   if (!response.ok) {
-    debugger;
     console.dir(response, await response.json());
     throw new Error(`HTTP error! status: ${response.status}`);
   }
@@ -34,10 +43,6 @@ export const useSSOApi = () => {
       return fetchData<{ ticket: string }>(`${api.permissionTicket}`, {
         method: "POST",
         body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + AuthLogin.getToken(),
-        },
       });
     },
     getAuthTokenInfo: (data: { grant_type: string; ticket: string }) => {
@@ -52,12 +57,10 @@ export const useSSOApi = () => {
       });
     },
     refreshAuthToken: () => {
-      return fetchData<TokenInfoType<number>>(`${api.refreshToken}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + AuthLogin.getRefreshToken(),
-        },
-      });
+      return fetchData<TokenInfoType<number>>(`${api.refreshToken}`, {});
     },
+    getCompanyList: () => fetchData<CompanyItem[]>(`${api.allCompany}`, {}),
+    getUserGroupList: () => fetchData<UserGroupItem[]>(`${api.userGroup}`, {}),
+    getGroupDetail: ({ id }: { id: string }) => fetchData<UserGroupItem>(`${api.groups}/${id}`),
   };
 };

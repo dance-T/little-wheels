@@ -43,3 +43,14 @@ export function subBefore(str: string, separator: string): string {
   const index = str.indexOf(separator);
   return index !== -1 ? str.substring(0, index) : str;
 }
+
+export function removeUrlParam(paramsArr: string[]) {
+  const currentUrl = window.location.href;
+  const url = new URL(currentUrl);
+  const params = new URLSearchParams(url.search);
+  paramsArr.forEach((str) => {
+    params.delete(str);
+  });
+  url.search = params.toString(); // 更新URL的查询字符串部分
+  window.history.pushState({}, "", url.href); // 更新浏览器历史记录但不刷新页面
+}

@@ -65,3 +65,25 @@ export interface DecodeTokenType {
   sub: string;
   typ: string;
 }
+
+export interface CompanyItem {
+  department_cd: string;
+  department_name: string;
+  sfejfgs: string;
+  parent_cd: string;
+  type: string;
+}
+
+export interface UserGroupItem {
+  id: string;
+  name: string;
+  path: string;
+  parentId: string;
+  subGroupCount: number;
+  attributes: {
+    type: string[]; // 3 分公司  4 组
+  };
+  subGroups: any;
+  type: string;
+  sfejfgs: any;
+}

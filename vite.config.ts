@@ -2,12 +2,14 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "node:path";
 import dts from "vite-plugin-dts";
+import removeConsole from "vite-plugin-remove-console"; // 新增导入
 
 export default defineConfig(({ command }) => {
   const isDev = command !== "build";
   return {
     plugins: [
       react(),
+      removeConsole(), // 只在生产环境生效
       dts({
         outDir: path.resolve(__dirname, "dist"),
         include: ["packages/**/*.ts", "packages/**/*.tsx"],

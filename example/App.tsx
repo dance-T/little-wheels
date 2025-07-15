@@ -10,6 +10,11 @@ export default function App() {
     authLogin.logout();
   };
 
+  const getUserBranchGroup = async () => {
+    const data = await authLogin.getUserBranchGroup();
+    console.log("getUserBranchGroup: ", data);
+  };
+
   useEffect(() => {
     authLogin = new AuthLogin({
       APPID,
@@ -18,7 +23,7 @@ export default function App() {
     if (!AuthLogin.getTokenInfo()) {
       authLogin.SSOLogin();
     } else {
-      console.log(AuthLogin.getDecodeToken());
+      getUserBranchGroup();
     }
   }, []);
   return (
