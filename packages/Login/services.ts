@@ -29,6 +29,12 @@ async function fetchData<T>(url: string, data?: RequestInit): Promise<T> {
   });
   if (!response.ok) {
     console.dir(response, await response.json());
+    const APPID = localStorage.getItem("APPID");
+    if (response.status === 401 && APPID) {
+      const authLogin = new AuthLogin({ APPID });
+      await authLogin.SSOLogin();
+      return await fetchData(url, data);
+    }
     throw new Error(`HTTP error! status: ${response.status}`);
   }
   return (await response.json()) as T;

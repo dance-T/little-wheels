@@ -145,13 +145,13 @@ class AuthLogin {
    */
   setToken(data: TokenInfoType<number>, type?: string) {
     if (type === "auth") {
-      const tokenInfo = LocalStorageUtil.getItem<TokenInfoType<number>>(`${this.APPID}-SSO-tokenInfo`);
+      const tokenInfo = LocalStorageUtil.getItem<TokenInfoType<number>>(`SSO-tokenInfo`);
       if (!data.id_token && tokenInfo) {
         data.id_token = tokenInfo.id_token;
       }
-      LocalStorageUtil.setItem(`${this.APPID}-tokenInfo`, data);
+      LocalStorageUtil.setItem(`tokenInfo`, data);
     } else {
-      LocalStorageUtil.setItem(`${this.APPID}-SSO-tokenInfo`, data);
+      LocalStorageUtil.setItem(`SSO-tokenInfo`, data);
     }
   }
 
@@ -230,8 +230,8 @@ class AuthLogin {
     if (!APPID) {
       throw new Error("APPID is not found, Please instantiate AuthLogin first.");
     }
-    const tokenInfo = LocalStorageUtil.getItem<TokenInfoType<number>>(`${APPID}-SSO-tokenInfo`);
-    const authTokenInfo = LocalStorageUtil.getItem<TokenInfoType<number>>(`${APPID}-tokenInfo`);
+    const tokenInfo = LocalStorageUtil.getItem<TokenInfoType<number>>(`SSO-tokenInfo`);
+    const authTokenInfo = LocalStorageUtil.getItem<TokenInfoType<number>>(`tokenInfo`);
     return authTokenInfo || tokenInfo || null;
   }
 
@@ -256,8 +256,8 @@ class AuthLogin {
     if (!APPID) {
       throw new Error("APPID is not found, Please instantiate AuthLogin first.");
     }
-    const tokenInfo = LocalStorageUtil.getItem<TokenInfoType<number>>(`${APPID}-SSO-tokenInfo`);
-    const authTokenInfo = LocalStorageUtil.getItem<TokenInfoType<number>>(`${APPID}-tokenInfo`);
+    const tokenInfo = LocalStorageUtil.getItem<TokenInfoType<number>>(`SSO-tokenInfo`);
+    const authTokenInfo = LocalStorageUtil.getItem<TokenInfoType<number>>(`tokenInfo`);
     return authTokenInfo?.refresh_token || tokenInfo?.refresh_token || "";
   }
 
@@ -281,8 +281,8 @@ class AuthLogin {
     if (!APPID) {
       throw new Error("APPID is not found, Please instantiate AuthLogin first.");
     }
-    LocalStorageUtil.removeItem(`${APPID}-tokenInfo`);
-    LocalStorageUtil.removeItem(`${APPID}-SSO-tokenInfo`);
+    LocalStorageUtil.removeItem(`tokenInfo`);
+    LocalStorageUtil.removeItem(`SSO-tokenInfo`);
   }
 }
 
