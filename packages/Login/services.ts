@@ -19,6 +19,8 @@ export interface SearchTokenParams {
   redirect_uri: string;
 }
 
+let reLoginCount = 0;
+
 async function fetchData<T>(url: string, data?: RequestInit): Promise<T> {
   const response = await fetch(url, {
     headers: {
@@ -30,13 +32,15 @@ async function fetchData<T>(url: string, data?: RequestInit): Promise<T> {
   if (!response.ok) {
     console.dir(response, await response.json());
     const APPID = localStorage.getItem("APPID");
-    if (response.status === 401 && APPID) {
+    if (response.status === 401 && APPID && reLoginCount < 10) {
+      reLoginCount += 1;
       const authLogin = new AuthLogin({ APPID });
       await authLogin.SSOLogin();
       return await fetchData(url, data);
     }
     throw new Error(`HTTP error! status: ${response.status}`);
   }
+  reLoginCount = 0;
   return (await response.json()) as T;
 }
 
