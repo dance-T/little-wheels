@@ -87,3 +87,150 @@ export interface UserGroupItem {
   type: string;
   sfejfgs: any;
 }
+
+export interface UserInfo {
+  user_name: string;
+  gender: string;
+  name: string;
+  sid: string;
+  token_info: DecodeTokenType;
+}
+
+interface IAttributes {
+  birthdate: any[];
+  gender: string[];
+  phone: string[];
+  customer: any[];
+  [key: string]: any[];
+}
+
+interface IAttributes {
+  birthdate: any[];
+  gender: string[];
+  phone: string[];
+  customer: any[];
+}
+
+interface IAccess {
+  manageGroupMembership: boolean;
+  view: boolean;
+  mapRoles: boolean;
+  impersonate: boolean;
+  manage: boolean;
+}
+
+interface IOriginalObj {
+  id: string;
+  origin: string;
+  createdTimestamp: number;
+  username: string;
+  enabled: boolean;
+  totp: boolean;
+  emailVerified: boolean;
+  firstName: string;
+  lastName: string;
+  email: string;
+  attributes: IAttributes;
+  disableableCredentialTypes: any[];
+  requiredActions: any[];
+  notBefore: number;
+  access: IAccess;
+}
+
+interface IDetail {
+  id: string;
+  name: string;
+  enabled: boolean;
+  username: string;
+  attributes: IAttributes;
+  original_obj: IOriginalObj;
+  position: any;
+  group: any;
+}
+
+export interface UserDetail {
+  user_name: string;
+  name: string;
+  phone: string;
+  gender: string;
+  position?: string;
+  detail: IDetail;
+  customer: any[];
+}
+
+interface IAccess {
+  manageGroupMembership: boolean;
+  view: boolean;
+  mapRoles: boolean;
+  impersonate: boolean;
+  manage: boolean;
+}
+
+export interface OriginUserDetail {
+  id: string;
+  origin: string;
+  createdTimestamp: number;
+  username: string;
+  enabled: boolean;
+  totp: boolean;
+  emailVerified: boolean;
+  firstName: string;
+  lastName: string;
+  email: string;
+  attributes: IAttributes;
+  disableableCredentialTypes: any[];
+  requiredActions: any[];
+  notBefore: number;
+  access: IAccess;
+}
+
+export interface SearchUserItem {
+  id: string;
+  name: string;
+  enabled: boolean;
+  username: string;
+  attributes: IAttributes;
+  original_obj: OriginUserDetail;
+  position?: string;
+  group?: GroupItem;
+}
+
+export interface GroupItem {
+  id: string;
+  name: string;
+  path: string;
+  parentId: string;
+  subGroupCount: any;
+  attributes: IAttributes;
+  subGroups: any;
+  type: string;
+  sfejfgs: string;
+}
+
+export interface ListRes<T> {
+  pageNumber: number;
+  pageInfo: {
+    totalResults: number;
+    resultsPerPage: number;
+  };
+  items: T[];
+}
+
+export interface RoleItem {
+  id: number;
+  position_type_id: number;
+  position_name: string;
+  job_name: string;
+  position_code: string;
+  remark: string;
+}
+
+export interface UserRoleItem {
+  client_role: boolean;
+  composite: boolean;
+  container_id: string;
+  id: string;
+  name: string;
+  client: any;
+  client_id: any;
+}

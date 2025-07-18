@@ -121,7 +121,6 @@ class AuthLogin {
   logout() {
     const { host, href, origin } = window.location;
     const { id_token } = AuthLogin.getTokenInfo() || {};
-    AuthLogin.removeToken();
 
     LocalStorageUtil.removeItem(`login_redirect_uri`);
 
@@ -133,6 +132,7 @@ class AuthLogin {
       params.keycloak_host = origin + "/sso/";
     }
     let str = `/lxwork/api/auth/endsession?${qs.stringify(params)}`;
+    AuthLogin.removeToken();
     window.location.href = str;
   }
 
